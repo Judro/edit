@@ -1,0 +1,15 @@
+#ifndef GAP_H
+#define GAP_H
+#include <stddef.h>
+typedef struct {
+  char *data;
+  size_t len;
+  size_t left;
+  size_t right;
+} Gap;
+
+int gap_init(Gap *gap, size_t len);
+int gap_insert(Gap *gap, char *s, size_t len);
+void gap_debug_print(Gap *gap);
+
+#endif

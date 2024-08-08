@@ -1,20 +1,44 @@
 #include "../gap.h"
 #include <assert.h>
+#include <stdlib.h>
 #include <string.h>
 
 void init(void) {
   Gap gap;
   assert(gap_init(&gap, 255) == 0);
+  free(gap.data);
 }
-void simple_import(void) {
+void simple_insert(void) {
   Gap gap;
   gap_init(&gap, 255);
   assert(gap_insert(&gap, "Hello", 5) == 0);
   assert(strcmp("Hello", gap.data) == 0);
-  gap_debug_print(&gap);
+  free(gap.data);
+}
+
+void move_curser_left(void) {
+  Gap gap;
+  gap_init(&gap, 255);
+  gap_insert(&gap, "Hello", 5);
+  assert(gap_move_cursor(&gap, 2) == 0);
+  assert(strcmp("He", gap.data) == 0);
+  free(gap.data);
+}
+
+void insert_2(void) {
+  Gap gap;
+  gap_init(&gap, 255);
+  gap_insert(&gap, "Hello", 5);
+  assert(gap_move_cursor(&gap, 2) == 0);
+  assert(strcmp("He", gap.data) == 0);
+  assert(gap_insert(&gap, "aaa", 3) == 0);
+  assert(strcmp("Heaaa", gap.data) == 0);
+  free(gap.data);
 }
 
 int main(void) {
   init();
-  simple_import();
+  simple_insert();
+  move_curser_left();
+  insert_2();
 }

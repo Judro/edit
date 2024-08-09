@@ -42,7 +42,7 @@ void gap_debug_print(Gap *gap) {
 }
 
 int gap_move_cursor(Gap *gap, size_t pos) {
-  if (pos > gap->right)
+  if (pos >= gap->len - (gap->right - gap->left))
     return -1;
   if (pos == gap->left)
     return 0;
@@ -55,6 +55,16 @@ int gap_move_cursor(Gap *gap, size_t pos) {
     gap->data[pos] = 0;
     gap->left = pos;
     gap->right -= diff;
+  } else {
+    // pos > right
+    size_t diff = pos - gap->left;
+    for (size_t i = 0; i < diff; i++) {
+      gap->data[gap->left + i] = gap->data[gap->right + i + 1];
+      gap->data[gap->right + i + 1] = 0;
+    }
+    gap->left = pos;
+    gap->right += diff;
+    // gap->data[gap->left]=0;
   }
   return 0;
 }

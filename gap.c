@@ -12,10 +12,42 @@ int gap_init(Gap *gap, size_t len) {
   return 0;
 }
 
+int gap_grow(Gap *gap) {
+  char *data = malloc((2 * gap->len + 1) * sizeof(char));
+  if (data == NULL) {
+    return -1;
+  }
+  data[2 * gap->len] = 0;
+
+  // for testing (remove me)
+  for (size_t i = 0; i < 2 * gap->len; i++) {
+    data[i] = '#';
+  }
+  // end
+
+  for (size_t i = 0; i < gap->left; i++) {
+    data[i] = gap->data[i];
+  }
+  for (size_t i = gap->left; i <= gap->right + gap->len; i++) {
+    data[i] = 0;
+  }
+  for (size_t i = gap->right + 1; i < gap->len; i++) {
+    data[i + gap->len] = gap->data[i];
+  }
+
+  free(gap->data);
+  gap->right += gap->len;
+  gap->len *= 2;
+  gap->data = data;
+  return 0;
+}
+
 // insert at left
 int gap_insert(Gap *gap, char *s, size_t len) {
   if (len >= gap->right - gap->left) {
-    // todo increse size;
+    do {
+      gap_grow(gap);
+    } while (len >= gap->len);
   }
   for (int i = 0; i < len; i++) {
     gap->data[gap->left + i] = s[i];
@@ -37,7 +69,7 @@ void gap_debug_print(Gap *gap) {
       str[i] = gap->data[i];
     }
   }
-  printf("%s\n%ld %ld %ld", str, gap->left, gap->right, gap->len);
+  printf("%s\n%ld %ld %ld\n", str, gap->left, gap->right, gap->len);
   free(str);
 }
 

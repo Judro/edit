@@ -12,6 +12,8 @@ A simple text editor for unix systems
 ## History
 
 ### v0.1.0 
-- [ ] Gap text buffer
+- [X] Gap text buffer
 - [ ] Display text & scrolling
-- [ ] Basic commands (hjkliax)
+- [ ] insert mode
+- [ ] Read & write files
+- [ ] tests

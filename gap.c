@@ -42,6 +42,16 @@ int gap_grow(Gap *gap) {
   return 0;
 }
 
+// delete at left
+int gap_delete(Gap *gap) {
+  if (gap->left == 0) {
+    return -1;
+  }
+  gap->left--;
+  gap->data[gap->left] = 0;
+  return 0;
+}
+
 // insert at left
 int gap_insert(Gap *gap, char *s, size_t len) {
   if (len >= gap->right - gap->left) {

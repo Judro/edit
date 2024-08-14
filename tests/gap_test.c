@@ -77,6 +77,7 @@ void insert_3(void) {
   assert(gap_insert(&gap, "ell", 3) == 0);
   assert(gap_move_cursor(&gap, 5) == 0);
   assert(gap_insert(&gap, " World", 6) == 0);
+  assert(strcmp("Hello World", gap.data) == 0);
   free(gap.data);
 }
 
@@ -86,6 +87,16 @@ void insert_4(void) {
   assert(gap_insert(&gap, "He", 2) == 0);
   assert(gap_move_cursor(&gap, 2) == 0);
   assert(gap_insert(&gap, "llo World", 9) == 0);
+  assert(strcmp("Hello World", gap.data) == 0);
+  free(gap.data);
+}
+
+void delete(void) {
+  Gap gap;
+  gap_init(&gap, 255);
+  assert(gap_insert(&gap, "Hello", 5) == 0);
+  assert(gap_delete(&gap) == 0);
+  assert(strcmp("Hell", gap.data) == 0);
   free(gap.data);
 }
 
@@ -98,4 +109,5 @@ int main(void) {
   move_curser_right_2();
   insert_3();
   insert_4();
+  delete ();
 }

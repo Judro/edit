@@ -13,5 +13,6 @@ int gap_insert(Gap *gap, char *s, size_t len);
 void gap_debug_print(Gap *gap);
 int gap_move_cursor(Gap *gap, size_t pos);
 int gap_delete(Gap *gap);
+void destroy_gap(Gap *gap);
 
 #endif

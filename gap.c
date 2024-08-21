@@ -73,6 +73,8 @@ void gap_debug_print(Gap *gap) {
       str[i] = '-';
       if (i == gap->left)
         str[i] = '<';
+      // bug .. inspect it  why does the else not overwrite it. a else if should
+      // help but I havent encountered an error? please test it
       if (i == gap->right)
         str[i] = '>';
     } else {
@@ -110,3 +112,5 @@ int gap_move_cursor(Gap *gap, size_t pos) {
   }
   return 0;
 }
+
+void destroy_gap(Gap *gap) { free(gap->data); }

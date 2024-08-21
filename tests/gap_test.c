@@ -6,14 +6,14 @@
 void init(void) {
   Gap gap;
   assert(gap_init(&gap, 255) == 0);
-  free(gap.data);
+  destroy_gap(&gap);
 }
 void simple_insert(void) {
   Gap gap;
   gap_init(&gap, 255);
   assert(gap_insert(&gap, "Hello", 5) == 0);
   assert(strcmp("Hello", gap.data) == 0);
-  free(gap.data);
+  destroy_gap(&gap);
 }
 
 void move_curser_left(void) {
@@ -22,7 +22,7 @@ void move_curser_left(void) {
   gap_insert(&gap, "Hello", 5);
   assert(gap_move_cursor(&gap, 2) == 0);
   assert(strcmp("He", gap.data) == 0);
-  free(gap.data);
+  destroy_gap(&gap);
 }
 
 void move_curser_right(void) {
@@ -37,7 +37,7 @@ void move_curser_right(void) {
   assert(strcmp("Hel", gap.data) == 0);
   assert(gap_move_cursor(&gap, 5) == 0);
   assert(strcmp("Hello", gap.data) == 0);
-  free(gap.data);
+  destroy_gap(&gap);
 }
 
 void move_curser_right_2(void) {
@@ -52,7 +52,7 @@ void move_curser_right_2(void) {
   assert(strcmp("Hel", gap.data) == 0);
   assert(gap_move_cursor(&gap, 5) == 0);
   assert(strcmp("Hello", gap.data) == 0);
-  free(gap.data);
+  destroy_gap(&gap);
 }
 
 void insert_2(void) {
@@ -66,7 +66,7 @@ void insert_2(void) {
   assert(gap_move_cursor(&gap, 8) == 0);
   assert(gap_insert(&gap, "end", 3) == 0);
   assert(strcmp("Heaaalloend", gap.data) == 0);
-  free(gap.data);
+  destroy_gap(&gap);
 }
 
 void insert_3(void) {
@@ -78,7 +78,7 @@ void insert_3(void) {
   assert(gap_move_cursor(&gap, 5) == 0);
   assert(gap_insert(&gap, " World", 6) == 0);
   assert(strcmp("Hello World", gap.data) == 0);
-  free(gap.data);
+  destroy_gap(&gap);
 }
 
 void insert_4(void) {
@@ -88,7 +88,7 @@ void insert_4(void) {
   assert(gap_move_cursor(&gap, 2) == 0);
   assert(gap_insert(&gap, "llo World", 9) == 0);
   assert(strcmp("Hello World", gap.data) == 0);
-  free(gap.data);
+  destroy_gap(&gap);
 }
 
 void delete(void) {
@@ -97,7 +97,7 @@ void delete(void) {
   assert(gap_insert(&gap, "Hello", 5) == 0);
   assert(gap_delete(&gap) == 0);
   assert(strcmp("Hell", gap.data) == 0);
-  free(gap.data);
+  destroy_gap(&gap);
 }
 
 int main(void) {
